@@ -17,13 +17,19 @@ h1{
 }
 span {
     font-family: Playfar , sans-serif;
-    font-weight: lighter;
+    font-size: 15px;
 }
 .container {
-    max-width: 650px;
+    max-width: 450px;
 }
 .col {
-    background-color: #050a19;
+    background-color: #0d1e50;
+    border: 1px solid #fff;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    font-size: clamp(12px , 10vw , 70px);
 }
 .row {
     height: 150px;
