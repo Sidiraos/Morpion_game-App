@@ -1,0 +1,30 @@
+*, ::before, ::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Roboto, Helvetica, sans-serif;
+    background: linear-gradient(to right, #283048, #859398);
+    color: #f1f1f1;
+    padding: clamp(20px, 5vw, 50px) 10px 10px;
+}
+
+h1{
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bolder;
+}
+span {
+    font-family: Playfar , sans-serif;
+    font-weight: lighter;
+}
+.container {
+    max-width: 650px;
+}
+.col {
+    background-color: #050a19;
+}
+.row {
+    height: 150px;
+}
