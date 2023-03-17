@@ -34,3 +34,7 @@ span {
 .row {
     height: 150px;
 }
+
+.winning-combination {
+    background-color: tomato;
+}
