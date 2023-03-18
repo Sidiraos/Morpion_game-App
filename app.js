@@ -21,9 +21,7 @@ cases.forEach(caseEl => {
 })
 
 function handleClick(e) {
-    if(lock) return;
-    clickedCount++;
-    fullCase(e.target , player);
+    fullCase(e.target , player)
     if(e.target.textContent === 'X') {
         addCombinaisonPlayers(xCombinaison , e , "XCombinaison");
         checkWinner(xCombinaison , "X")
