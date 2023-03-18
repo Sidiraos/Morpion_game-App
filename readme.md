@@ -24,6 +24,12 @@ The m,n,k-games are mainly of mathematical interest. One seeks to find the game-
     <li>add background color winning combination</li>
     <li>fixed some bug when game fished not abled to click again </li>
 </ul>
+<ul>
+    <b>V1.5</b>
+    <li>add flexibility code</li>
+    <li>add currentPlayer variable in js independent to html code</li>
+    <li>fixed some bug when game fished not abled to click again </li>
+</ul>
 
 
 

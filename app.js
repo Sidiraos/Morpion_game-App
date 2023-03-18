@@ -1,6 +1,7 @@
 
 let xCombinaison = [];
 let yCombinaison = [];
+let currentPlayer = "X";
 let clickedCount = 0;
 const winningCombinations = [
     [0, 1, 2],
@@ -14,28 +15,34 @@ const winningCombinations = [
 ]
 
 const cases = [...document.querySelectorAll('.case')];
-const player = document.querySelector('h1[data-player="x"]');
+const info = document.querySelector('.info');
 let lock = false;
+
+info.textContent = "Au tour de " + currentPlayer;
+
 cases.forEach(caseEl => {
     caseEl.addEventListener('click', handleClick);
 })
 
 function handleClick(e) {
-    fullCase(e.target , player)
-    if(e.target.textContent === 'X') {
+    if(lock) return;
+    e.target.textContent = currentPlayer;
+    clickedCount++;
+    if(currentPlayer === 'X') {
         addCombinaisonPlayers(xCombinaison , e , "XCombinaison");
-        checkWinner(xCombinaison , "X")
+        if(checkWinner(xCombinaison , currentPlayer)) return;
     } else {
         addCombinaisonPlayers(yCombinaison , e , "YCombinaison");
-        checkWinner(yCombinaison , "O")
+        if(checkWinner(yCombinaison , currentPlayer)) return;
     }
     if (e.target.textContent.length > 0) e.target.removeEventListener('click', handleClick);
+    switchPlayer()
 }
 function addCombinaisonPlayers(array, e , arrayName){
     array.push(cases.findIndex(el => el === e.target)); 
     console.log(arrayName , array);
 }
-function checkWinner(array , joueur) {
+function checkWinner(array , currentPlayer) {
     array.sort()
     console.log("array", array);
     for (let i = 0; i < winningCombinations.length; i++) {
@@ -45,16 +52,15 @@ function checkWinner(array , joueur) {
             lock = true;
             console.log("Combinaison gagnante trouvée :", combination);
           // Arrêter la boucle si une combinaison gagnante est trouvée
-            player.textContent = joueur + " a gagné! Appuiyez sur F5 pour recommencez";
-            player.classList.add("fw-lighter");
+            info.textContent = currentPlayer + " a gagné! Appuiyez sur F5 pour recommencez";
+            info.classList.add("fw-lighter");
             styleWinCombination(combination);
-            reloadGame();
-          break;
+            return true;
         } else {
             if(clickedCount === cases.length) {
                 console.log("Match fini");
-                player.textContent = "Match nul Appuiyez sur F5 pour recommencer !";
-                player.classList.add("fw-lighter");
+                info.textContent = "Match nul Appuiyez sur F5 pour recommencer !";
+                info.classList.add("fw-lighter");
             }
         }
       }
@@ -67,20 +73,8 @@ function styleWinCombination(combination) {
         cases[combination[i]].classList.add("winning-combination");
     }
 }
-function reloadGame(){
-    document.addEventListener('keydown', (e)=>{
-        if(e.key === 'F5')location.reload();
-    })
-}
 
-function fullCase(el , player){
-    if(player.getAttribute('data-player') === 'x') {
-        el.textContent = 'X';
-        player.setAttribute('data-player', 'o');
-        player.textContent = 'Au tour de 0';
-    } else {
-        el.textContent = 'O';
-        player.setAttribute('data-player', 'x');
-        player.textContent = 'Au tour de X';
-    }
+function switchPlayer(){
+    currentPlayer = currentPlayer === "X" ? "O" : "X";
+    info.textContent = 'Au tour de ' + currentPlayer;
 }
