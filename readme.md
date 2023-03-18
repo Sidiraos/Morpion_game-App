@@ -31,5 +31,10 @@ The m,n,k-games are mainly of mathematical interest. One seeks to find the game-
     <li>fixed some bug when game fished not abled to click again </li>
 </ul>
 
+<ul>
+    <b>V1.6</b>
+    <li>Bug corrected </li>
+</ul>
+
 
 

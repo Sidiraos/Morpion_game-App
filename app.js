@@ -61,6 +61,7 @@ function checkWinner(array , currentPlayer) {
                 console.log("Match fini");
                 info.textContent = "Match nul Appuiyez sur F5 pour recommencer !";
                 info.classList.add("fw-lighter");
+                return true;
             }
         }
       }
