@@ -16,11 +16,12 @@ h1{
     font-weight: bolder;
 }
 span {
-    font-family: Playfar , sans-serif;
-    font-size: 15px;
+    font-family: Playfar Display SC , sans-serif;
+    font-size: 16px;
+    font-weight: 100;
 }
 .container {
-    max-width: 450px;
+    max-width: 400px;
 }
 .col {
     background-color: #0d1e50;
@@ -30,7 +31,9 @@ span {
     display: flex;
     justify-content: center;
     font-size: clamp(12px , 10vw , 70px);
+    aspect-ratio: 1/1;
 }
-.row {
-    height: 150px;
+
+.winning-combination {
+    background-color: tomato;
 }

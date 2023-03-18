@@ -1,6 +1,7 @@
-const currentGame = [];
+
 let xCombinaison = [];
 let yCombinaison = [];
+let clickedCount = 0;
 const winningCombinations = [
     [0, 1, 2],
     [3, 4, 5],
@@ -20,21 +21,22 @@ cases.forEach(caseEl => {
 })
 
 function handleClick(e) {
-    fullCase(e.target , player)
+    if(lock) return;
+    clickedCount++;
+    fullCase(e.target , player);
     if(e.target.textContent === 'X') {
-        xCombinaison.push(cases.findIndex(el => el === e.target)); 
-        console.log("xCombinaison" , xCombinaison);
+        addCombinaisonPlayers(xCombinaison , e , "XCombinaison");
         checkWinner(xCombinaison , "X")
     } else {
-        yCombinaison.push(cases.findIndex(el => el === e.target)); 
-        console.log("yCombinaison" , yCombinaison);
-        checkWinner(yCombinaison , "Y")
+        addCombinaisonPlayers(yCombinaison , e , "YCombinaison");
+        checkWinner(yCombinaison , "O")
     }
-    if (e.target.textContent.length > 0) {
-        e.target.removeEventListener('click', handleClick);
-    }
+    if (e.target.textContent.length > 0) e.target.removeEventListener('click', handleClick);
 }
-
+function addCombinaisonPlayers(array, e , arrayName){
+    array.push(cases.findIndex(el => el === e.target)); 
+    console.log(arrayName , array);
+}
 function checkWinner(array , joueur) {
     array.sort()
     console.log("array", array);
@@ -42,22 +44,37 @@ function checkWinner(array , joueur) {
         const combination = winningCombinations[i];
         // Vérifier si tous les éléments de la combinaison se trouvent dans l'array
         if (combination.every((element) => array.includes(element))) {
-          console.log("Combinaison gagnante trouvée :", combination);
+            lock = true;
+            console.log("Combinaison gagnante trouvée :", combination);
           // Arrêter la boucle si une combinaison gagnante est trouvée
-            player.textContent = joueur + " vous avez gagné! Appuiyez sur F5 pour recommencez";
+            player.textContent = joueur + " a gagné! Appuiyez sur F5 pour recommencez";
             player.classList.add("fw-lighter");
+            styleWinCombination(combination);
             reloadGame();
           break;
+        } else {
+            if(clickedCount === cases.length) {
+                console.log("Match fini");
+                player.textContent = "Match nul Appuiyez sur F5 pour recommencer !";
+                player.classList.add("fw-lighter");
+            }
         }
       }
 
     }
 
+
+function styleWinCombination(combination) {
+    for(let i = 0; i < combination.length; i++) {
+        cases[combination[i]].classList.add("winning-combination");
+    }
+}
 function reloadGame(){
     document.addEventListener('keydown', (e)=>{
         if(e.key === 'F5')location.reload();
     })
 }
+
 function fullCase(el , player){
     if(player.getAttribute('data-player') === 'x') {
         el.textContent = 'X';
